@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const ticketsRouter = require('./routes/tickets');
+const authRouter = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,12 +11,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// health-check
 app.get('/', (req, res) => {
   res.send('Ticket API работает');
 });
 
-// маршруты тикетов
+app.use('/api/auth', authRouter);
 app.use('/api/tickets', ticketsRouter);
 
 app.listen(PORT, () => {
